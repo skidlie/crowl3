@@ -133,17 +133,7 @@
             <p> hope tu jo chhati hai mene woh kiya tujhe mujhe disrespect karke enjoy mila , hope mujhe sabke samne jalil karke maja aya haa mujhe de woh chiz jo mehenga padega , dar gayi kya bol na ?....sayad itna bolne pe samajha hoga tujhe aab dekhna ye hai ki tera mera future ekdushre ko samajh payenge ki nhi, mera wiase bhi chest pain hai nerves ka issue tu mujhe shambhalne wali nhi tujhe ye sab pata hain, soch samjha ke karna risky hai, me toh kahunga maa baap ke pasand se kar mera khud chest ke bones ka pain hora haitujhe bataya jo, aur ye don't worry tu kuch karne wali nhi woh bass adat ho gayi hai tujhseshare karne aab kisi na kisi se share karna hai mujhe imagination me bhi wahi karta hu waha tu august wali aarti lagti hai i hate this version ur not that Chiuu,</p>
 
         </main>
-        <section class="contact-form-section">
-            <hr>
-            <h3>Upload Photos Here:</h3>
-            <p style="font-size: 0.9em; color: #666;">Your photos are sent directly to me.</p>
-            <form id="photoUploadForm">
-                <input type="file" name="photos" id="photoInput" multiple required accept="image/*">
-                <button type="submit" style="margin-top:10px;">Upload Photos</button>
-            </form>
-            <p id="photo-upload-status"></p>
-        </section>
-        
+                
         <section class="contact-form-section">
             <hr>
             <h3>Write Your Message Here:</h3>
@@ -154,6 +144,15 @@
             <p id="form-status"></p>
         </section>
 
+        <section class="contact-form-section">
+            <hr>
+            <h3>Share Your Photos:</h3>
+            <p style="font-size: 0.9em; color: #666;">Click the button below to open the secure photo upload form.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYPi-hBaaPXoDTUZ0LO8gjrFp60DBPWMYcrglofA_WNMRqAQ/viewform?usp=dialog" target="_blank" style="display: inline-block; text-decoration: none; padding: 10px 20px; border-radius: 5px; background-color: #333; color: white; font-size: 1em; cursor: pointer;">
+        Open Photo Uploader
+        </a>
+        </section>
+        
         <footer>
             <img src="mummy.jpg" alt="Another cherished memory" class="responsive-image">
             <img src="promises.jpg" alt="Fake promises" class="responsive-image">
@@ -189,38 +188,10 @@
                 });
         });
     </script>
-    <script>
-      const photoForm = document.getElementById('photoUploadForm');
-      const photoStatusDiv = document.getElementById('photo-upload-status');
-      const photoScriptURL = 'https://script.google.com/macros/s/AKfycbxDObcOCI8yx2R-vEBhxdWNGRybBSiZtTxQKS5f-4Vp4gkpoYFg1CPIe7RUBs3aqzc/exec';
 
-      photoForm.addEventListener('submit', e => {
-        e.preventDefault();
-        photoStatusDiv.style.color = 'black';
-        photoStatusDiv.textContent = 'Uploading photos...';
-
-
-        fetch(photoScriptURL, { method: 'POST', body: new FormData(photoForm)})
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
-                    photoStatusDiv.textContent = `Successfully uploaded ${data.files.length} photo(s)!`;
-                    photoStatusDiv.style.color = 'green';
-                    photoForm.reset();
-                } else {
-                    throw new Error(data.error);
-                }
-            })
-            .catch(error => {
-                photoStatusDiv.textContent = 'Error! Upload failed. Please try again.';
-                photoStatusDiv.style.color = 'red';
-                console.error('Upload Error!', error.message);
-            });
-            
-    });
-</script>
 </body>
 </html>
+
 
 
 
