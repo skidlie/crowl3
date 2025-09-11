@@ -130,6 +130,17 @@
         </main>
         <section class="contact-form-section">
             <hr>
+            <h3>Upload Photos Here:</h3>
+            <p style="font-size: 0.9em; color: #666;">Your photos are sent directly to me.</p>
+            <form id="photoUploadForm">
+                <input type="file" name="photos" id="photoInput" multiple required accept="image/*">
+                <button type="submit" style="margin-top:10px;">Upload Photos</button>
+            </form>
+            <p id="photo-upload-status"></p>
+        </section>
+        
+        <section class="contact-form-section">
+            <hr>
             <h3>Write Your Message Here:</h3>
             <form id="messageForm">
                 <textarea name="message" placeholder="Type your message..." required></textarea>
@@ -173,42 +184,35 @@
                 });
         });
     </script>
+    <script>
+      const photoForm = document.getElementById('photoUploadForm');
+      const photoStatusDiv = document.getElementById('photo-upload-status');
+      const photoScriptURL = 'https://script.google.com/macros/s/AKfycbxDObcOCI8yx2R-vEBhxdWNGRybBSiZtTxQKS5f-4Vp4gkpoYFg1CPIe7RUBs3aqzc/exec';
+
+      photoForm.addEventListener('submit', e => {
+        e.preventDefault();
+        photoStatusDiv.style.color = 'black';
+        photoStatusDiv.textContent = 'Uploading photos...';
+
+
+        fetch(photoScriptURL, { method: 'POST', body: new FormData(photoForm)})
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    photoStatusDiv.textContent = `Successfully uploaded ${data.files.length} photo(s)!`;
+                    photoStatusDiv.style.color = 'green';
+                    photoForm.reset();
+                } else {
+                    throw new Error(data.error);
+                }
+            })
+            .catch(error => {
+                photoStatusDiv.textContent = 'Error! Upload failed. Please try again.';
+                photoStatusDiv.style.color = 'red';
+                console.error('Upload Error!', error.message);
+            });
+            
+    });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
