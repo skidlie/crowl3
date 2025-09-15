@@ -119,9 +119,16 @@
         </header>
 
         <main class="letter-content">
-        <p>me aane ke liye aa bhi jau lekin same usdin jaisa tu shant rahegi jab mummy papa ke sath ayi thi</p>
+            <p> kya karu re aarti mazak bana rakha hai tune , tujhe sab easy lagta hai, chodd de khatam karde khud reh keti hai bina baat kiye mujhe nhi hota na, kya maaf karde ? aaj ye kaha se aaya maaf karde ? waise bhi tune thodi na galti ki mene ki ye website bana ke sach keh raha hu tujhe jab realise hoga jitna pyar karta hu aur chodd nhi baat karna mujhe chidd ho rabi hai maan kara hai khid ka sar diwal me patak du , katte se sar me goli mardu</p>
 
-                <p> khushi rehna tu...apna khayal rakhna, aapne maa ke pasand se shadi karna ,i know you will be very happy, have a good life ahead .. Goodbye....</p>
+
+            <p>yaar i hate when some say yaa tu bhi ki chodd de yaa kuch bhi teri bakchodi, i hate to hear beacaudw i wanted tk love forever</p>
+            <p>i am still learning how to be best for you,....what u doing ? batao</p>
+            <p>mene tujhse waisa pyar kiya jaisa me chhata tha koi mujhse kare</p>
+            <p>and mene toh bola tha i will not leave you till you get married to someone else...aur tujhe proof chhaiye na ? tum loyal raho , sagi maa ki kasam agar separate hua uska reason hoga Death, mar gaya toh hii dur reh paunga</p>
+            <p>trust needs proof, sorry needs changes....me toh work koya sorryies pe and trust pe bhi ,tumne ke kiya chodo yaar </p>
+            <p> you know what, sirf tere chest pain and document kaha baat ki isiliye wapas reply kara hu...nhi toh bilkul Maan nhi tha, kal sham tak server se hatane wala tha me , kyu ki tujhe kadar nhi bilkul meri....sach kahu toh sirf tujhe kadar nhi jara jaa kisi aur ladki ko batana mere baare me bolegi bohot sacha pyar karne wala hai aur achievement sunke khud kabhi nhi chodegi but me thehra pagal mamta dhund gaya usse ruk gaya .....i am really sorry mera tabyat thik nhi aur thoda emotional hu, kuch bura lage toh sorry </p>
+<p>Aarti honestly bol na woh gussa nhi tha woh hard truth tha jo suna diya aur tujhe bura laga.....tume bataya tak nhi hai total kitna earnings hii teri ? acha chal kitna diya papa ko ? aur tujhe kitna rakha ?? sach batana aur hua kya hai ?</p>
                      </main>
                 
         <section class="contact-form-section">
@@ -133,8 +140,30 @@
             </form>
             <p id="form-status"></p>
         </section>
-        <p> dont worry, website kal band kardunga nhi toh mujhe hii bolegi...kal se sab server pe se hata dunga....be happy , hope u will get the boy you dreamed of, dont come to my any where in future...i hate you i hate ur personality i hate ur attidue cheacter all....aab khush rehna tu yehi chhati thi naa tu khush reh aab tu khayal rakhna aapna aur nhi bhi rakhe mujhe kya mere time pe koi aaya tha kya .....and thanks for hurting me hope you enjoyed playing with a heart who just wanted to hug you till last breath who just wanted to be safe with you, who just wanted to not share that to anyone thanks , thank you so much for letting me feel, make me cry i curse you to get married to ur parents choice...</p>
+        <p>const form = document.getElementById('messageForm');
+        const statusDiv = document.getElementById('form-status');
+        const scriptURL /exec';
 
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            statusDiv.textContent = 'Sending...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        statusDiv.textContent = '!';
+                        statusDiv.style.color = 'green';
+                        form.reset();
+                        setTimeout(() => { statusDiv.textContent = ''; }, 5000);
+                    } else {
+                        throw new Error(data.error);
+                    }
+                })
+                .catch(error => {
+                    statusDiv.textContent = 'Error! Please try again.';
+                    statusDiv.style.color = 'red';
+                    console.error('Error!', error.message);</p>
         
         <footer>
            // <img src="mummy.jpg" alt="Another cherished memory" class="responsive-image">
@@ -174,6 +203,7 @@
 
 </body>
 </html>
+
 
 
 
