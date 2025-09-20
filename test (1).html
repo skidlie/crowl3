@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Prevent text selection */
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;
+        }
+        .screenshot-proof::after {
+            content: ''; 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100vw; 
+            height: 100vh; 
+            background: transparent;
+            z-index: 10000; 
+            pointer-events: none;
+        }
+        img, video {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+
+    <div id="password-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="w-full max-w-sm p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl text-center">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Private Access</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">Enter the special date in DD/MM format.</p>
+            <form id="password-form">
+                <input type="text" id="password-input" placeholder="DD/MM" autocomplete="off" class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-center text-lg outline-none">
+                <p id="error-message" class="text-red-500 text-sm mt-2 h-5"></p>
+                <button type="submit" class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg">Unlock Memories</button>
+            </form>
+        </div>
+    </div>
+
+    <main id="content-container" class="hidden opacity-0 transition-opacity duration-500">
+        <div class="container mx-auto p-4 md:p-8">
+            <h1 class="text-4xl font-bold text-center text-gray-800 dark:text-white my-8">Our Special Moments</h1>
+            
+            <div class="max-w-4xl mx-auto space-y-12">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Our Favorite Photo</h2>
+                    <img src="your-photo.jpg" alt="A cherished memory" class="w-full h-auto rounded-md">
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">A Moment in Time</h2>
+                    <video controls controlsList="nodownload" oncontextmenu="return false;" class="w-full rounded-md">
+                        <source src="your-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Our Song</h2>
+                    <audio controls controlsList="nodownload" oncontextmenu="return false;" class="w-full">
+                        <source src="your-audio.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const passwordOverlay = document.getElementById('password-overlay');
+        const passwordForm = document.getElementById('password-form');
+        const passwordInput = document.getElementById('password-input');
+        const errorMessage = document.getElementById('error-message');
+        const contentContainer = document.getElementById('content-container');
+        const body = document.body;
+
+        // --- Set your password here ---
+        const CORRECT_PASSWORD = '30/10';
+
+        function unlockContent() {
+            // Fade out the password overlay
+            passwordOverlay.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => passwordOverlay.classList.add('hidden'), 500);
+
+            // Fade in the main content
+            contentContainer.classList.remove('hidden');
+            setTimeout(() => contentContainer.classList.remove('opacity-0'), 50);
+            
+            // Activate the screenshot protection overlay
+            body.classList.add('screenshot-proof');
+        }
+
+        passwordForm.addEventListener('submit', (event) => {
+            // Prevent the form from refreshing the page
+            event.preventDefault();
+            
+            if (passwordInput.value.trim() === CORRECT_PASSWORD) {
+                unlockContent();
+            } else {
+                errorMessage.textContent = 'Incorrect date. Please try again.';
+                // Clear the error message after a few seconds
+                setTimeout(() => errorMessage.textContent = '', 3000);
+            }
+        });
+
+        // --- Protection Measures ---
+        
+        // Disable right-click context menu globally
+        document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+        // Disable common keyboard shortcuts for saving/developer tools
+        document.addEventListener('keydown', (event) => {
+            // Disable Ctrl+S (save) and Ctrl+P (print)
+            if (event.ctrlKey && (event.key === 's' || event.key === 'p')) {
+                event.preventDefault();
+            }
+            // Disable F12 (developer tools)
+            if (event.key === 'F12') {
+                event.preventDefault();
+            }
+        });
+
+    </script>
+</body>
+</html>
