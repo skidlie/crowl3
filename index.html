@@ -167,8 +167,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success') {
-                        statusDiv.textContent = '​{"message": "Authentication credentials were not provided."}<br> ​{"detail": "Method \"POST\" not allowed."}<br>
-                            Message Sent Successfully!';
+                        statusDiv.textContent = '​"message": "Authentication credentials were not provided."detail": "Method POST not allowed "Message Sent Successfully!';
                         statusDiv.style.color = 'green';
                         messageForm.reset();
                         setTimeout(() => { statusDiv.textContent = ''; }, 5000);
@@ -256,6 +255,7 @@ function uploadFile(file) {
     </script>
 </body>
 </html>
+
 
 
 
