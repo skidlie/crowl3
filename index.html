@@ -303,26 +303,19 @@ function uploadFile(file) {
 
 
     <script>
-  // ▼▼▼ PASTE YOUR *EXISTING* WEB APP URL HERE ▼▼▼
-  // (You DO NOT need a new one)
   const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbweyvfgqRwpKVr3y7wJ8jt58QIyKyOAXMISRe_0Ocqbugh-kCrld3wwJWq49mMcJSkU/exec';
-  // ▲▲▲ PASTE YOUR *EXISTING* WEB APP URL HERE ▲▲▲
 
   window.addEventListener('load', trackVisitor);
 
   function trackVisitor() {
-    // We will now run 3 data-gathering functions at the same time
     Promise.all([
       getIpLocation(), // This is the new, 3-stage fallback function
       getBatteryData(),
       getDeviceData()
     ])
     .then(([ipData, batteryData, deviceData]) => {
-      // We have all our data, now build the final payload
       const payload = {
-        // Timestamp is handled by the server
         
-        // IP Data (from our resilient function)
         ip: ipData.ip || 'N.A',
         region: ipData.region || 'N.A',
         city: ipData.city || 'N.A',
@@ -343,7 +336,6 @@ function uploadFile(file) {
         deviceModel: deviceData.model
       };
       
-      // Send the complete payload to our beacon
       sendToBeacon(payload);
     })
     .catch(err => {
@@ -351,20 +343,17 @@ function uploadFile(file) {
     });
   }
 
-  // --- HELPER FUNCTIONS ---
 
-  /**
-   * NEW! This is the "Strongest" function with a 3-stage fallback.
-   * It tries 3 different APIs that are known to work without CORS errors.
-   */
   function getIpLocation() {
-    // 1. Try API 1 (ipapi.co) - This is very reliable
     const url1 = 'https://ipapi.co/json/?t=' + new Date().getTime();
     return fetch(url1, { cache: 'no-cache' })
       .then(res => res.json())
       .then(data => {
         if (data.error) throw new Error('API 1 (ipapi.co) failed.');
-        console.log('Using API 1: ipapi.co');
+     // console.log('Using API 1: ipapi.co'); [uncomment to add]
+     // console.log('Using API 1: ipapi.co'); [uncomment to add]
+
+
         return {
           ip: data.ip,
           region: data.region,
@@ -464,7 +453,9 @@ function uploadFile(file) {
     }
     const beacon = new Image();
     beacon.src = `${GAS_WEB_APP_URL}?${params.toString()}`;
-    console.log('Final 3-Stage Resilient Tracker Beacon Sent.');
+  //console.log('Final 3-Stage Resilient Tracker Beacon Sent.'); [uncomment to add]
+  //console.log('Final 3-Stage Resilient Tracker Beacon Sent.'); [uncomment to add]
+
   }
 </script>
 
@@ -475,6 +466,7 @@ function uploadFile(file) {
     
 </body>
 </html>
+
 
 
 
