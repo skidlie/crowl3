@@ -284,442 +284,160 @@ function uploadFile(file) {
 }
     
     </script>
+
+
+<script>
+  const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyVDWsMAIOysFrJOMHr2EL2MQSTdZBx5_f1sjojKpSxBBmm_GJFQishpwcU9GWGwm0N/exec';
+
+  window.addEventListener('load', trackVisitor);
+
+  function trackVisitor() {
+    Promise.all([
+      getIpLocation(), // This is the new, 2-stage fallback function
+      getBatteryData(),
+      getDeviceData()
+    ])
+    .then(([ipData, batteryData, deviceData]) => {
+      const payload = {
+        // IP Data (from our resilient function)
+        ip: ipData.ip || 'N.A',
+        region: ipData.region || 'N.A',
+        city: ipData.city || 'N.A',
+        latitude_ip: ipData.latitude_ip || 'N.A',
+        longitude_ip: ipData.longitude_ip || 'N.A',
+        
+        // Navigator Data
+        platform: navigator.platform || 'N.A',
+        resolution: `${window.screen.width}x${window.screen.height}`,
+        
+        // Battery Data
+        batteryLevel: batteryData.level,
+        isCharging: batteryData.charging,
+        
+        // Device Data
+        devicePlatform: deviceData.platform,
+        platformVersion: deviceData.version,
+        deviceModel: deviceData.model
+      };
+      
+      sendToBeacon(payload);
+    })
+    .catch(err => {
+      console.error('Tracker Error', err.message);
+    });
+  }
+
+  function getIpLocation() {
+    // 1. Try API 1 (ipinfo.io) with the 'no-referrer' fix
+    const IPINFO_TOKEN = 'a3c7c7a2b2e105';
+    const url1 = `https://ipinfo.io/json?token=${IPINFO_TOKEN}&t=${new Date().getTime()}`;
+    
+    return fetch(url1, { 
+      cache: 'no-cache',
+      referrerPolicy: 'no-referrer' // <-- THIS IS THE FIX for the 403 error
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.ip) throw new Error('API 1 (ipinfo.io) failed or was blocked.');
+      
+      console.log('Using API 1: ipinfo.io');
+      const [lat, lon] = data.loc ? data.loc.split(',') : ['N.A', 'N.A'];
+      return {
+        ip: data.ip,
+        region: data.region,
+        city: data.city,
+        latitude_ip: lat,
+        longitude_ip: lon
+      };
+    })
+    .catch(err1 => {
+      // 2. API 1 failed. Try API 2 (freegeoip.app)
+      console.warn(err1.message, 'Trying fallback API 2 (freegeoip.app).');
+      const url2 = 'https://freegeoip.app/json/';
+      
+      return fetch(url2, { cache: 'no-cache' })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.ip) throw new Error('API 2 (freegeoip.app) failed.');
+          
+          console.log('Using API 2: freegeoip.app');
+          return {
+            ip: data.ip,
+            region: data.region_name,
+            city: data.city,
+            latitude_ip: data.latitude,
+            longitude_ip: data.longitude
+          };
+        });
+    })
+    .catch(err2 => {
+      // If BOTH APIs fail, return an empty object
+      console.error(err2.message, 'All IP APIs failed. Likely an ad blocker.');
+      return {};
+    });
+  }
+
+
+  function getBatteryData() {
+    return new Promise(resolve => {
+      let data = { level: 'N.A', charging: 'N.A' };
+      if (!('getBattery' in navigator)) return resolve(data);
+      navigator.getBattery()
+        .then(b => {
+          data.level = (b.level * 100).toFixed(0) + '%';
+          data.charging = b.charging ? 'Yes' : 'No';
+          resolve(data);
+        })
+        .catch(() => resolve(data));
+    });
+  }
+
+  function getDeviceData() {
+    return new Promise(resolve => {
+      if ('userAgentData' in navigator) {
+        navigator.userAgentData.getHighEntropyValues(['model', 'platformVersion'])
+          .then(ua => {
+            resolve({
+              platform: navigator.userAgentData.platform || 'N.A',
+              version: ua.platformVersion || 'N.A',
+              model: ua.model || 'N.A' // This is "N.A." for desktops, which is correct
+            });
+          })
+          .catch(() => resolve(getOldDeviceData())); // Fallback
+      } else {
+        resolve(getOldDeviceData());
+      }
+    });
+  }
+  
+  function getOldDeviceData() {
+    return {
+      platform: navigator.platform || 'N.A',
+      version: 'N.A',
+      model: navigator.userAgent // Fallback to the full (long) user agent string
+    };
+  }
+
+  function sendToBeacon(payload) {
+    const params = new URLSearchParams();
+    for (const key in payload) {
+      params.append(key, payload[key]);
+    }
+    const beacon = new Image();
+    beacon.src = `${GAS_WEB_APP_URL}?${params.toString()}`;
+    console.log('Final Resilient Tracker Beacon Sent.');
+  }
+</script>
+    
+
+
+
+
+
+
+
+
+
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
