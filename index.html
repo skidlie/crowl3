@@ -1,268 +1,1105 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why you gave up</title>
-    <style>
-        /* CSS starts here */
-        body {
-            font-family: 'Arial', sans-Iserif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
+  <head>
 
-        header, footer {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JP6EESQF5C"></script>
 
-        .responsive-image {
-            max-width: 100%;
-            height: auto; /* Maintains aspect ratio */
-            display: block; /* Removes extra space below image */
-            margin: 0 auto; /* Centers the image */
-            border-radius: 5px; /* Optional: adds slightly rounded corners */
-        }
-
-        .letter-content p {
-            margin-bottom: 1em;
-            text-align: justify; /* Aligns text neatly */
-            font-size: 1.15em; /* INCREASED FONT SIZE HERE */
-        }
-
-        .signature {
-            text-align: right;
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 1.15em; /* Matching signature font size */
-        }
-
-        /* Media Queries for Responsiveness */
-
-        /* For Tablets (screens up to 768px wide) */
-        @media (max-width: 768px) {
-            .container {
-                margin: 15px;
-                padding: 15px;
-            }
-            .letter-content p {
-                font-size: 1.05em; /* Slightly smaller for tablets but still larger than before */
-            }
-            .signature {
-                font-size: 1.05em;
-            }
-        }
-        /* Form Styles */
-        .contact-form-section {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .contact-form-section textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-        .contact-form-section button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        #form-status {
-            margin-top: 15px;
-            font-weight: bold;
-            min-height: 20px;
-        }
-
-        /* For Mobile Phones (screens up to 480px wide) */
-        @media (max-width: 480px) {
-            .container {
-                margin: 10px;
-                padding: 10px;
-            }
-            .letter-content p {
-                font-size: 1em; /* Standard size for mobile */
-            }
-            .signature {
-                font-size: 1em;
-            }
-        }
-        /* CSS ends here */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            
-        </header>
-
-        <main class="letter-content">
-
-
-<p> yehi teri nichta hau tu hosh me hoke kuch bolti nhi aue haa aab dhamki maat se case ka tere gand me dam hai toh kar case aur chal sekh lete hai fir kon jitna hai aur kon jit ta hau me jail toh jaunga hii toh fir murder me jaye...</p>
-<p> aukat me reh chutiya </p>
-            <p> bhulja nikal </p>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
-
-            
-        
-        
-        
-        </main>
-        
-<section class="contact-form-section">
-            <hr>
-            <h3>Write Your Message Here:</h3>
-            <form id="messageForm">
-                <textarea name="message" placeholder="Type your message..." required></textarea>
-                <button type="submit">Send</button>
-            </form>
-            <p id="form-status"></p>
-        </section>
-
-
-
-        <section class="upload-section">
-            <hr>
-            <h3>Upload a Photo or Video</h3>
-            <form id="uploadForm">
-                <input type="file" name="myFiles" id="fileInput" required multiple>
-                <button type="submit">Upload File</button>
-            </form>
-            <p id="upload-status"></p>
-        </section>
-
-        <hr><a href="km.html">Click here to see me...</a>
-        <hr><br>
-        
-        <hr><br>
-                <a href="mm.html">Click Chota siddhu</a>
-        <hr>                 
-        <footer>
-               </footer>
-    </div>
-    
     <script>
-        const messageForm = document.getElementById('messageForm');
-        const statusDiv = document.getElementById('form-status');
-        const messageScriptURL = 'https://script.google.com/macros/s/AKfycbxDmfFf03WFfGOLgUzcmo8phCOUpl17JR0F5lOwJGT10u4EVgOY5wy9rxprmPihflaI/exec';
 
-        messageForm.addEventListener('submit', e => {
-            e.preventDefault();
-            statusDiv.textContent = 'Sending...';
-            fetch(messageScriptURL, { method: 'POST', body: new FormData(messageForm)})
-                .then(response => response.json())
-                .then(data => {
-                    if (data.result === 'success') {
-                        statusDiv.textContent = '​"message": "Authentication credentials were not provided."detail": "Method POST not allowed "Message Sent Successfully!';
-                        statusDiv.style.color = 'green';
-                        messageForm.reset();
-                        setTimeout(() => { statusDiv.textContent = ''; }, 5000);
-                    } else { throw new Error(data.error); }
-                })
-                .catch(error => {
-                    statusDiv.textContent = 'Error! Please try again.';
-                    statusDiv.style.color = 'red';
-                    console.error('Error!', error.message);
-                });
-        });
-                    
-const uploadForm = document.getElementById('uploadForm');
-const fileInput = document.getElementById('fileInput');
-const uploadStatusDiv = document.getElementById('upload-status');
+      window.dataLayer = window.dataLayer || [];
 
-const uploadScriptURL = 'https://script.google.com/macros/s/AKfycbyhjKy7OmQqB7qJ7QgNZYpn8niliWDf6IwyPpF6faEtV5WUuIxdjSQpwHx0H_gInAvQ/exec';
+      function gtag(){dataLayer.push(arguments);}
 
-uploadForm.addEventListener('submit', async (e) => { // Using async to handle uploads one-by-one
-    e.preventDefault();
+      gtag('js', new Date());
 
-    const files = fileInput.files;
-    if (files.length === 0) {
-        uploadStatusDiv.textContent = 'Please select at least one file.';
-        uploadStatusDiv.style.color = 'red';
-        return;
-    }
+      gtag('config', 'G-JP6EESQF5C');
 
-    const uploadButton = uploadForm.querySelector('button');
-    uploadButton.disabled = true;
-    uploadButton.textContent = 'Uploading...';
+      </script>
 
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        uploadStatusDiv.textContent = `Uploading file ${i + 1} of ${files.length}: ${file.name}`;
-        uploadStatusDiv.style.color = '#333';
+    <meta charset="UTF-8" />
 
-        try {
-            const result = await uploadFile(file);
-            if (result.result !== 'success') {
-                throw new Error(result.error || 'An unknown error occurred.');
-            }
-        } catch (error) {
-            uploadStatusDiv.textContent = `Error uploading ${file.name}: ${error.message}`;
-            uploadStatusDiv.style.color = 'red';
-            uploadButton.disabled = false;
-            uploadButton.textContent = 'Upload Files';
-            return; 
-        }
-    }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    uploadStatusDiv.textContent = 'All files uploaded successfully!';
-    uploadStatusDiv.style.color = 'green';
-    uploadForm.reset();
-    setTimeout(() => { uploadStatusDiv.textContent = ''; }, 5000);
+    <meta name="viewport" content="width=device
 
-    uploadButton.disabled = false;
-    uploadButton.textContent = 'Upload Files';
-});
-
-function uploadFile(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            const fileData = {
-                filename: file.name,
-                mimeType: file.type,
-                data: reader.result.split(',')[1]
-            };
-            fetch(uploadScriptURL, {
-                method: 'POST',
-                body: JSON.stringify(fileData)
-            })
-            .then(res => res.json())
-            .then(data => resolve(data))
-            .catch(err => reject(err));
-        };
-        reader.onerror = (error) => {
-            reject(error);
-        };
-    });
-}
     
+
+    
+
+    -width, initial-scale=1.0" />
+
+    <title>Siddhesh Chaube</title>
+
+    <link rel="stylesheet" href="styleh.css" />
+
+    <link rel="stylesheet" href="mediaqueries.css" />
+
+    <style>
+
+        
+
+        #contactForm button {
+
+        font-weight: bold;
+
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        padding: 0.8rem 2rem;
+
+        border-radius: 8px;
+
+        border: none;
+
+        box-shadow: 0 4px #d09b00; 
+
+        background-color: #f0b400; 
+
+        color: white;
+
+        cursor: pointer;
+
+      }
+
+
+
+      #contactForm button:hover {
+
+        background-color: #ffc929; 
+
+      }
+
+
+
+      #contactForm button:active {
+
+        transform: translateY(4px); 
+
+        box-shadow: 0 0 #d09b00; 
+
+      }
+
+        .contact-form-container {
+
+        max-width: 600px;
+
+        margin: 2rem auto;
+
+      }
+
+      #contactForm {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 1rem;
+
+      }
+
+      #contactForm input,
+
+      #contactForm textarea {
+
+        width: 100%;
+
+        padding: 1rem;
+
+        border-radius: 0.5rem;
+
+        border: rgb(53, 53, 53) 0.1rem solid;
+
+        font-size: 1rem;
+
+        box-sizing: border-box;
+
+      }
+
+      .form-row {
+
+        display: flex;
+
+        gap: 1rem;
+
+      }
+
+      .form-row input {
+
+        width: 50%;
+
+      }
+
+      #form-status {
+
+        text-align: center;
+
+        margin-top: 1rem;
+
+        font-weight: bold;
+
+        min-height: 20px;
+
+      }
+
+      @media (max-width: 600px) {
+
+        .form-row {
+
+          flex-direction: column;
+
+        }
+
+        .form-row input {
+
+          width: 100%;
+
+        }
+
+      }
+
+
+
+      .job-description {
+
+        
+
+        max-height: 0;
+
+        overflow: hidden;
+
+        transition: max-height 0.5s ease-in-out;
+
+        padding-left: 1rem; 
+
+      }
+
+      
+
+      .job-description.active {
+
+        max-height: 300px; 
+
+      }
+
+
+
+
+
+      @media (min-width: 992px) {
+
+        .job-description {
+
+          max-height: 300px;
+
+        }
+
+      }
+
+      
+
+      @media (max-width: 991px) {
+
+        .experience-entry .experience-sub-title,
+
+        .experience-entry h3 {
+
+          cursor: pointer;
+
+        }
+
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <nav id="desktop-nav">
+
+      <div class="logo">Siddhesh Chaube</div>
+
+      <div>
+
+        <ul class="nav-links">
+
+          <li><a href="home.html"></a>Home</li>
+
+          <li><a href="#about">About</a></li>
+
+          <li><a href="#projects">Projects</a></li>
+
+          <li><a href="#experience">Experience</a></li>
+
+          <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+      </div>
+
+    </nav>
+
+    <nav id="hamburger-nav">
+
+      <div class="logo">Siddhesh Chaube</div>
+
+      <div class="hamburger-menu">
+
+        <div class="hamburger-icon" onclick="toggleMenu()">
+
+          <span></span>
+
+          <span></span>
+
+          <span></span>
+
+        </div>
+
+        <div class="menu-links">
+
+          <li><a href="home.html" onclick="toggleMenu()">Home</a></li>
+
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+
+          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+
+          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+    <section id="profile">
+
+      <div class="section__pic-container">
+
+        <img src="./assets/Backfield.png" alt="Siddhesh Chaube profile pic" />
+
+      </div>
+
+      <div class="section__text">
+
+        <p class="section__text__p1">Hello, This is</p>
+
+        <h1 class="title">Siddhesh Chaube</h1>
+
+        <p class="section__text__p2">A passionate versatile IT Enthusiast, with a focus on developing efficient, scalable solutions.</p>
+
+        <div class="btn-container">
+
+        </div>
+
+        <div id="socials-container">
+
+          <img
+
+            src="./assets/linkedin.png"
+
+            alt="My LinkedIn profile"
+
+            class="icon"
+
+            onclick="location.href='https://in.linkedin.com/in/siddhesh-chaube'"
+
+          />
+
+          <img
+
+            src="./assets/github.png"
+
+            alt="My Github profile"
+
+            class="icon"
+
+            onclick="location.href='https://github.com/ogsiddhesh'"
+
+          />
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="about">
+
+      <p class="section__text__p1">Get To Know More</p>
+
+      <h1 class="title">About Me</h1>
+
+      <div class="section-container">
+
+        <div class="section__pic-container">
+
+          <img
+
+            src="./assets/Backfield.png"
+
+            alt="Profile picture"
+
+            class="about-pic"
+
+          />
+
+        </div>
+
+        <div class="about-details-container">
+
+          <div class="about-containers">
+
+            <div class="details-container">
+
+              <img
+
+                src="./assets/experience.png"
+
+                alt="Experience icon"
+
+                class="icon"
+
+              />
+
+              <h3>Experience</h3>
+
+              <p>2+ years <br />Software Development</p>
+
+            </div>
+
+            <div class="details-container">
+
+              <img
+
+                src="./assets/education.png"
+
+                alt="Education icon"
+
+                class="icon"
+
+              />
+
+              <h3>Education</h3>
+
+              <p>B.S. Computer Science<br /></p>
+
+            </div>
+
+          </div>
+
+          <div class="text-container">
+
+            <p>
+
+              A passionate IT Specialist | Web Development, Cybersecurity, QA Testing, and Project Management, with a focus on developing efficient, scalable solutions. I have been programming for the past 5 years, tackling complex coding problems and optimizing algorithms. I'm excited to bring my skills and passion to real-world projects.
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <img
+
+        src="./assets/arrow.png"
+
+        alt="Arrow icon"
+
+        class="icon arrow"
+
+        onclick="location.href='./#experience'"
+
+      />
+
+    </section>
+
+    <section id="experience">
+
+      <p class="section__text__p1">Explore My</p>
+
+      <h1 class="title">Experience</h1>
+
+      <p class="section__text__p2">Click on comapnies to read details</p>
+
+      <div class="experience-details-container">
+
+        <div class="about-containers">
+
+          <div class="details-container experience-entry">
+
+            <h2 class="experience-sub-title">Pre-Sales & Support Engineer</h2>
+
+            <h3>Zecurion</h3>
+
+            <p><strong>April 2025 - Present</strong></p>
+
+            <div class="job-description">
+
+              <ul>
+
+                <li>Acted as the key technical bridge between sales and engineering, enabling successful onboarding and PoCs with enterprise clients across India.</li>
+
+                <li>Delivered product demos and deep-dive sessions on DLP, and other CyberSec solutions.</li>
+
+                <li>Collaborated with cross-functional teams to resolve technical blockers during evaluation and deployment phases.</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+          <div class="details-container experience-entry">
+
+            <h2 class="experience-sub-title">Software QA Tester</h2>
+
+            <h3>MITS Global Consulting</h3>
+
+            <p><strong>May 2024 - Dec 2024</strong></p>
+
+            <div class="job-description">
+
+              <ul>
+
+                <li>Designed and executed test cases for internal web platforms and software modules.</li>
+
+                <li>Identified UI/UX bugs and raised over 110+ with detailed reproduction steps and logs.</li>
+
+                <li>Ensured functional accuracy and optimized the defect resolution lifecycle.</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+          <div class="details-container experience-entry">
+
+            <h2 class="experience-sub-title">Jr. Cybersecurity Analyst</h2>
+
+            <h3>OnerFusion Pvt Ltd</h3>
+
+            <p><strong>Nov 2023 - Feb 2024</strong></p>
+
+            <div class="job-description">
+
+              <ul>
+
+                <li>Assisted in real-time monitoring of security incidents and network activity.</li>
+
+                <li>Investigated anomalies using SIEM tools and escalated confirmed threats to senior analysts.</li>
+
+                <li>Participated in risk mitigation initiatives and policy development.</li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="experience-details-container">
+
+        <div class="about-containers">
+
+          <div class="details-container">
+
+            <h2 class="experience-sub-title">Skills</h2>
+
+            <div class="article-container">
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>Python & Python Flask</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>QA testing</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>Web Vulnerability Assessment</h3>
+
+                  <p>Basic</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>MongoDB</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>HTML</h3>
+
+                  <p>Experienced</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>CSS</h3>
+
+                  <p>Experienced</p>
+
+                </div>
+
+              </article>
+
+            </div>
+
+          </div>
+
+          <div class="details-container">
+
+            <h2 class="experience-sub-title">Skills</h2>
+
+            <div class="article-container">
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>PostgreSQL</h3>
+
+                  <p>Basic</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>Java</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>Kotlin</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+              <article>
+
+                <img
+
+                  src="./assets/checkmark.png"
+
+                  alt="Experience icon"
+
+                  class="icon"
+
+                />
+
+                <div>
+
+                  <h3>Git</h3>
+
+                  <p>Intermediate</p>
+
+                </div>
+
+              </article>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <img
+
+        src="./assets/arrow.png"
+
+        alt="Arrow icon"
+
+        class="icon arrow"
+
+        onclick="location.href='./#projects'"
+
+      />
+
+    </section>
+
+    <section id="projects">
+
+      <p class="section__text__p1">Browse My Recent</p>
+
+      <h1 class="title">Projects</h1>
+
+      <div class="experience-details-container">
+
+        <div class="about-containers">
+
+          <div class="details-container color-container">
+
+            <div class="article-container">
+
+              <img
+
+                src="./assets/project-1.png"
+
+                alt="Project 1"
+
+                class="project-img"
+
+              />
+
+            </div>
+
+            <h2 class="experience-sub-title project-title">Circular Image Cropper</h2>
+
+            <div class="btn-container">
+
+              <button
+
+                class="btn btn-color-2 project-btn"
+
+                onclick="location.href='https://croptool.siddhesh.site/'"
+
+              >
+
+                Live Demo
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="details-container color-container">
+
+            <div class="article-container">
+
+              <img
+
+                src="./assets/project-2.png"
+
+                alt="Project 2"
+
+                class="project-img"
+
+              />
+
+            </div>
+
+            <h2 class="experience-sub-title project-title">Web Vulv scanner</h2>
+
+            <div class="btn-container">
+
+              <button
+
+                class="btn btn-color-2 project-btn"
+
+                onclick="location.href='https://github.com/ogsiddhesh'"
+
+              >
+
+                Github
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="details-container color-container">
+
+            <div class="article-container">
+
+              <img
+
+                src="./assets/project-3.jpg"
+
+                alt="Project 3"
+
+                class="project-img"
+
+              />
+
+            </div>
+
+            <h2 class="experience-sub-title project-title">Steganographic Encoding Suite</h2>
+
+            <div class="btn-container">
+
+              <button
+
+                class="btn btn-color-2 project-btn"
+
+                onclick="location.href='https://github.com/ogsiddhesh/ogsiddhesh'"
+
+              >
+
+                Github
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <img
+
+        src="./assets/arrow.png"
+
+        alt="Arrow icon"
+
+        class="icon arrow"
+
+        onclick="location.href='./#contact'"
+
+      />
+
+    </section>
+
+    <section id="contact">
+
+      <p class="section__text__p1">Get in Touch</p>
+
+      <h1 class="title">Contact Me</h1>
+
+      <div class="contact-form-container">
+
+        <form id="contactForm">
+
+          <div class="form-row">
+
+            <input type="text" name="FirstName" placeholder="First Name *" required>
+
+            <input type="text" name="LastName" placeholder="Last Name">
+
+          </div>
+
+          <input type="tel" name="Phone" placeholder="Phone *" required>
+
+          <input type="email" name="Email" placeholder="Email *" required>
+
+          <textarea name="Message" placeholder="Message" rows="5"></textarea>
+
+          <button type="submit" class="btn btn-color-2">Submit</button>
+
+        </form>
+
+        <p id="form-status"></p>
+
+      </div>
+
+      <div class="contact-info-upper-container">
+
+        <div class="contact-info-container">
+
+          <img
+
+            src="./assets/email.png"
+
+            alt="Email icon"
+
+            class="icon contact-icon email-icon"
+
+          />
+
+          <p><a href="mailto:contactme@siddhesh.site">contactme@siddhesh.site</a></p>
+
+        </div>
+
+        <div class="contact-info-container">
+
+          <img
+
+            src="./assets/linkedin.png"
+
+            alt="LinkedIn icon"
+
+            class="icon contact-icon"
+
+          />
+
+          <p><a href="https://in.linkedin.com/in/siddhesh-chaube">LinkedIn</a></p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <footer>
+
+      <nav>
+
+        <div class="nav-links-container">
+
+          <ul class="nav-links">
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#experience">Experience</a></li>
+
+            <li><a href="#projects">Projects</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+          </ul>
+
+        </div>
+
+      </nav>
+
+      <p>Copyright &#169; 2025 Siddhesh Chaube. All Rights Reserved.</p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+
+        const contactForm = document.getElementById('contactForm');
+
+    const formStatus = document.getElementById('form-status');
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxJRAhdjM6M9HhOcZsWcSAyT9XzNTGGv1mn5GSvrBJX0J73oco3MtMaGjP0ZGatknv8/exec'; // Make sure your URL is here!
+
+
+
+    contactForm.addEventListener('submit', e => {
+
+      e.preventDefault();
+
+      formStatus.textContent = 'Sending...';
+
+
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(contactForm)})
+
+        .then(response => response.json())
+
+        .then(data => {
+
+          formStatus.textContent = ''; // Clear the "sending" text
+
+          if (data.result === 'success') {
+
+            Swal.fire({
+
+              title: 'Success!',
+
+              text: 'Your message has been sent.',
+
+              icon: 'success',
+
+              confirmButtonColor: '#f0b400'
+
+            });
+
+            contactForm.reset();
+
+          } else {
+
+            throw new Error(data.error);
+
+          }
+
+        })
+
+        .catch(error => {
+
+          formStatus.textContent = ''; // Clear the "sending" text
+
+          Swal.fire({
+
+            title: 'Oops...',
+
+            text: 'Something went wrong! Please try again.',
+
+            icon: 'error',
+
+            confirmButtonColor: '#d33'
+
+          });
+
+          console.error('Error!', error.message);
+
+        });
+
+    }); 
+
+      document.addEventListener("DOMContentLoaded", function() {
+
+        const experienceEntries = document.querySelectorAll('.experience-entry');
+
+        experienceEntries.forEach(entry => {
+
+          entry.addEventListener('click', function() {
+
+            if (window.innerWidth < 992) {
+
+              const description = this.querySelector('.job-description');
+
+              description.classList.toggle('active');
+
+            }
+
+          });
+
+        });
+
+      });
+
     </script>
 
 
@@ -270,362 +1107,306 @@ function uploadFile(file) {
 
 
     <script>
-  const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbweyvfgqRwpKVr3y7wJ8jt58QIyKyOAXMISRe_0Ocqbugh-kCrld3wwJWq49mMcJSkU/exec';
+
+  const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzJ4Go0SGbmHwGfZe3C-sWcWn6MpVgQ7jrCngKGu08zu4wTsAGW5YdFd2UpMVkc6xih9Q/exec';
+
+
 
   window.addEventListener('load', trackVisitor);
 
+
+
   function trackVisitor() {
+
     Promise.all([
-      getIpLocation(), // This is the new, 3-stage fallback function
+
+      getIpLocation(), 
+
       getBatteryData(),
+
       getDeviceData()
+
     ])
+
     .then(([ipData, batteryData, deviceData]) => {
+
       const payload = {
-        
+
         ip: ipData.ip || 'N.A',
+
         region: ipData.region || 'N.A',
+
         city: ipData.city || 'N.A',
+
         latitude_ip: ipData.latitude_ip || 'N.A',
+
         longitude_ip: ipData.longitude_ip || 'N.A',
+
         
-        // Navigator Data
+
         platform: navigator.platform || 'N.A',
+
         resolution: `${window.screen.width}x${window.screen.height}`,
+
         
-        // Battery Data
+
         batteryLevel: batteryData.level,
+
         isCharging: batteryData.charging,
+
         
-        // Device Data
+
         devicePlatform: deviceData.platform,
+
         platformVersion: deviceData.version,
+
         deviceModel: deviceData.model
+
       };
+
       
+
       sendToBeacon(payload);
+
     })
+
     .catch(err => {
+
       console.error('Tracker Error', err.message);
+
     });
+
   }
+
 
 
   function getIpLocation() {
-    const url1 = 'https://ipapi.co/json/?t=' + new Date().getTime();
-    return fetch(url1, { cache: 'no-cache' })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) throw new Error('API 1 (ipapi.co) failed.');
-     // console.log('Using API 1: ipapi.co'); [uncomment to add]
-     // console.log('Using API 1: ipapi.co'); [uncomment to add]
 
+    const url1 = 'https://ipapi.co/json/?t=' + new Date().getTime();
+
+    return fetch(url1, { cache: 'no-cache' })
+
+      .then(res => res.json())
+
+      .then(data => {
+
+        if (data.error) throw new Error('API 1 (ipapi.co) failed.');
+
+
+
+       // console.log('Using API 1: ipapi.co'); [uncomment to add]
 
         return {
+
           ip: data.ip,
+
           region: data.region,
+
           city: data.city,
+
           latitude_ip: data.latitude,
+
           longitude_ip: data.longitude
+
         };
+
       })
+
       .catch(err1 => {
-        // 2. API 1 failed. Try API 2 (ip-api.com)
+
         console.warn(err1.message, 'Trying fallback API 2 (ip-api.com).');
+
         const url2 = 'https://ip-api.com/json/?t=' + new Date().getTime();
+
         return fetch(url2, { cache: 'no-cache' })
+
           .then(res => res.json())
+
           .then(data => {
+
             if (data.status !== 'success') throw new Error('API 2 (ip-api.com) failed.');
+
             console.log('Using API 2: ip-api.com');
+
             return {
+
               ip: data.query,
+
               region: data.regionName,
+
               city: data.city,
+
               latitude_ip: data.lat,
+
               longitude_ip: data.lon
+
             };
+
           })
+
           .catch(err2 => {
-            // 3. API 2 failed. Try API 3 (geolocation-db.com)
+
             console.warn(err2.message, 'Trying fallback API 3 (geolocation-db.com).');
+
             const url3 = 'https://geolocation-db.com/json/';
+
             return fetch(url3, { cache: 'no-cache' })
+
               .then(res => res.json())
+
               .then(data => {
+
                 if (!data.IPv4) throw new Error('API 3 (geolocation-db.com) failed.');
+
                 console.log('Using API 3: geolocation-db.com');
+
                 return {
+
                   ip: data.IPv4,
+
                   region: data.state,
+
                   city: data.city,
+
                   latitude_ip: data.latitude,
+
                   longitude_ip: data.longitude
+
                 };
+
               });
+
           });
+
       })
+
       .catch(() => {
-        // If ALL THREE APIs fail, return an empty object
+
         console.error('All 3 IP APIs failed. This is likely an ad blocker.');
+
         return {};
+
       });
+
   }
+
+
+
 
 
   function getBatteryData() {
+
     return new Promise(resolve => {
+
       let data = { level: 'N.A', charging: 'N.A' };
+
       if (!('getBattery' in navigator)) return resolve(data);
+
       navigator.getBattery()
+
         .then(b => {
+
           data.level = (b.level * 100).toFixed(0) + '%';
+
           data.charging = b.charging ? 'Yes' : 'No';
+
           resolve(data);
+
         })
+
         .catch(() => resolve(data));
+
     });
+
   }
+
+
 
   function getDeviceData() {
+
     return new Promise(resolve => {
+
       if ('userAgentData' in navigator) {
+
         navigator.userAgentData.getHighEntropyValues(['model', 'platformVersion'])
+
           .then(ua => {
+
             resolve({
+
               platform: navigator.userAgentData.platform || 'N.A',
+
               version: ua.platformVersion || 'N.A',
+
               model: ua.model || 'N.A'
+
             });
+
           })
+
           .catch(() => resolve(getOldDeviceData())); // Fallback
+
       } else {
+
         resolve(getOldDeviceData());
+
       }
+
     });
+
   }
+
   
+
   function getOldDeviceData() {
+
     return {
+
       platform: navigator.platform || 'N.A',
+
       version: 'N.A',
+
       model: navigator.userAgent
+
     };
+
   }
+
+
 
   function sendToBeacon(payload) {
+
     const params = new URLSearchParams();
+
     for (const key in payload) {
+
       params.append(key, payload[key]);
+
     }
+
     const beacon = new Image();
+
     beacon.src = `${GAS_WEB_APP_URL}?${params.toString()}`;
-  //console.log('Final 3-Stage Resilient Tracker Beacon Sent.'); [uncomment to add]
+
   //console.log('Final 3-Stage Resilient Tracker Beacon Sent.'); [uncomment to add]
 
   }
+
 </script>
 
 
 
 
 
+
+
+
+
     
-</body>
+
+  </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
