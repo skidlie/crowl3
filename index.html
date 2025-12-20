@@ -170,8 +170,9 @@
 
             
         </main>
+
         
-<section class="contact-form-section">
+        <section class="contact-form-section">
             <hr>
             <h3>Write Your Message Here:</h3>
             <form id="messageForm">
@@ -204,18 +205,19 @@
     </div>
     
     <script>
-    c nst message = m = docu.ent.getElementById('messageFo;
-            c nst statu = v = docu.ent.getElementById('form-stat;
-            c nst messageScrip = L = 'https://script.google.com/macros/s/AKfycbxDmfFf03WFfGOLgUzcmo8phCOUpl17JR0F5lOwJGT10u4EVgOY5wy9rxprmPihflaI/e;
 
-            message.orm.addEventListener('sub, t =>  
-             .  e.preventDefau;
+        const messageForm = document.getElementById('messageForm');
+        const statusDiv = document.getElementById('form-status');
+        const messageScriptURL = 'https://script.google.com/macros/s/AKfycbxDmfFf03WFfGOLgUzcmo8phCOUpl17JR0F5lOwJGT10u4EVgOY5wy9rxprmPihflaI/exec';
+
+        messageForm.addEventListener('submit', e => {
+            e.preventDefault();
             statusDiv.textContent = 'Sending...';
             fetch(messageScriptURL, { method: 'POST', body: new FormData(messageForm)})
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success') {
-                        statusDiv.textContent = '​"message": "Authentication credentials were not provided."detail": "Method POST not allowed "Message Sent Successfully!';
+                        statusDiv.textContent = 'Message Sent Successfully!';
                         statusDiv.style.color = 'green';
                         messageForm.reset();
                         setTimeout(() => { statusDiv.textContent = ''; }, 5000);
@@ -227,6 +229,7 @@
                     console.error('Error!', error.message);
                 });
         });
+    
                     
 const uploadForm = document.getElementById('uploadForm');
 const fileInput = document.getElementById('fileInput');
@@ -470,6 +473,7 @@ function uploadFile(file) {
     
 </body>
 </html>
+
 
 
 
